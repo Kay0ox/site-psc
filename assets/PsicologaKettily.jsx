@@ -1,8 +1,8 @@
 // src/components/PsicologaKettily.jsx
 import React, { useState } from "react";
-import logo from "../assets/KETTILY FORMIGA 6.png";
-import foto1 from "../assets/kettilyformiga_b01.jpg";
-import foto2 from "../assets/kettilyformiga_b08.jpg";
+import logo from "KETTILY FORMIGA 6.png";
+import foto1 from "kettilyformiga_b01.jpg";
+import foto2 from "kettilyformiga_b08.jpg";
 import "./PsicologaKettily.css";
 
 const PsicologaKettily = () => {
