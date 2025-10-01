@@ -1,213 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dra. Kettily Formiga - Psicóloga</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dra. Kettily Formiga | Psicóloga</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div id="app" class="min-h-screen bg-background text-foreground font-sans">
-        <!-- Header com navegação -->
-        <header id="header" class="fixed w-full z-50 transition-all duration-300">
-            <div class="container mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="text-2xl font-bold text-primary">Dra. Kettily Formiga</div>
-                    <nav class="hidden md:flex space-x-8">
-                        <a href="#inicio" class="hover:text-primary transition-colors">Início</a>
-                        <a href="#sobre" class="hover:text-primary transition-colors">Sobre</a>
-                        <a href="#servicos" class="hover:text-primary transition-colors">Serviços</a>
-                        <a href="#faq" class="hover:text-primary transition-colors">Perguntas</a>
-                        <a href="#contato" class="hover:text-primary transition-colors">Contato</a>
-                    </nav>
-                    <button class="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
-                        Agendar Consulta
-                    </button>
-                </div>
-            </div>
-        </header>
+<body class="min-h-screen bg-gray-50 text-gray-900 font-sans">
 
-        <!-- Hero Section com Parallax -->
-        <section id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden">
-            <div id="hero-bg" class="absolute inset-0 bg-cover bg-center bg-fixed"></div>
-            <div class="absolute inset-0 bg-black/40"></div>
-            <div class="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6">Cuidando da Sua Mente</h1>
-                <p class="text-xl md:text-2xl mb-8">Psicologia clínica com humanidade e excelência técnica</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="bg-primary text-primary-foreground px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors">
-                        Começar Agora
-                    </button>
-                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-foreground transition-colors">
-                        Saber Mais
-                    </button>
-                </div>
-            </div>
-        </section>
+  <!-- Header -->
+  <header class="fixed w-full z-50 bg-white shadow">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-blue-600">Dra. Kettily Formiga</div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#inicio" class="hover:text-blue-600">Início</a>
+        <a href="#sobre" class="hover:text-blue-600">Sobre</a>
+        <a href="#servicos" class="hover:text-blue-600">Serviços</a>
+        <a href="#faq" class="hover:text-blue-600">Perguntas</a>
+        <a href="#contato" class="hover:text-blue-600">Contato</a>
+      </nav>
+      <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Agendar Consulta</button>
+    </div>
+  </header>
 
-        <!-- Sobre -->
-        <section id="sobre" class="py-20 bg-muted/30">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <img src="https://placeholder-image-service.onrender.com/image/500x600?prompt=Professional%20female%20psychologist%20smiling%20warmly%20in%20clinical%20setting&id=about-001" 
-                             alt="Psicóloga profissional em ambiente clínico aconchegante"
-                             class="rounded-lg shadow-xl w-full">
-                    </div>
-                    <div>
-                        <h2 class="text-4xl font-bold mb-6">Sobre a Dra. kettily Formiga</h2>
-                        <p class="text-lg text-muted-foreground mb-6">
-                            Com mais de  anos de experiência em psicologia clínica, me dedico a oferecer um 
-                            atendimento humanizado e baseado em evidências científicas. Minha abordagem combina 
-                            técnicas da terapia cognitivo-comportamental com uma escuta empática e acolhedora.
-                        </p>
-                        <p class="text-lg text-muted-foreground mb-8">
-                            Formada pela Universidade de São Paulo com especialização em Terapia Cognitivo-Comportamental, 
-                            acredito que cada pessoa possui recursos internos para superar desafios e alcançar bem-estar.
-                        </p>
-                        <div class="grid grid-cols-2 gap-6">
-                            <div class="text-center">
-                                <div class="text-3xl font-bold text-primary">500+</div>
-                                <div class="text-muted-foreground">Pacientes Atendidos</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold text-primary">10+</div>
-                                <div class="text-muted-foreground">Anos de Experiência</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- Hero -->
+  <section id="inicio" class="relative h-screen flex items-center justify-center">
+    <img src="https://placeholder-image-service.onrender.com/image/1920x1080?prompt=Serene%20therapy%20office"
+         alt="Consultório aconchegante" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative z-10 text-center text-white px-6">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">Cuidando da Sua Mente</h1>
+      <p class="text-xl md:text-2xl mb-8">Psicologia clínica com humanidade e excelência técnica</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">Começar Agora</button>
+        <button class="border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900">Saber Mais</button>
+      </div>
+    </div>
+  </section>
 
-        <!-- Serviços -->
-        <section id="servicos" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4">Serviços Oferecidos</h2>
-                    <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Oferecemos diferentes modalidades de atendimento para atender às suas necessidades específicas
-                    </p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8" id="services-container">
-                    <!-- Serviços serão inseridos via JavaScript -->
-                </div>
-            </div>
-        </section>
+  <!-- Sobre -->
+  <section id="sobre" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <img src="https://placeholder-image-service.onrender.com/image/500x600?prompt=Professional%20female%20psychologist"
+           alt="Psicóloga" class="rounded-lg shadow-xl w-full" />
+      <div>
+        <h2 class="text-4xl font-bold mb-6">Sobre a Dra. Kettily Formiga</h2>
+        <p class="text-lg mb-6">
+          Com mais de 10 anos de experiência em psicologia clínica, ofereço um atendimento humanizado
+          e baseado em evidências científicas. Minha abordagem combina técnicas da TCC com uma escuta acolhedora.
+        </p>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-blue-600">500+</div>
+            <div>Pacientes Atendidos</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-blue-600">10+</div>
+            <div>Anos de Experiência</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- FAQ -->
-        <section id="faq" class="py-20 bg-muted/30">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4">Perguntas Frequentes</h2>
-                    <p class="text-lg text-muted-foreground">
-                        Tire suas dúvidas sobre terapia e atendimento psicológico
-                    </p>
-                </div>
-                <div class="max-w-4xl mx-auto" id="faq-container">
-                    <!-- FAQ será inserido via JavaScript -->
-                </div>
-            </div>
-        </section>
+  <!-- Footer -->
+  <footer class="bg-gray-200 py-12">
+    <div class="container mx-auto px-6 text-center">
+      <h4 class="text-2xl font-bold text-blue-600 mb-2">Dra. Kettily Formiga</h4>
+      <p class="text-gray-600">Psicóloga Clínica dedicada ao seu bem-estar emocional.</p>
+      <p class="mt-6 text-gray-500">&copy; 2024 Dra. Kettily Formiga. Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
-        <!-- Contato -->
-        <section id="contato" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h2 class="text-4xl font-bold mb-6">Entre em Contato</h2>
-                        <p class="text-lg text-muted-foreground mb-8">
-                            Estou aqui para ajudar você a dar o primeiro passo em direção ao bem-estar emocional.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <svg class="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
-                                <span class="text-lg">(11) 99999-9999</span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                                <span class="text-lg">contato@dranasilva.com</span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <span class="text-lg">Av. Paulista, 1000 - São Paulo, SP</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-card p-8 rounded-xl shadow-lg">
-                        <form class="space-y-6" id="contact-form">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Nome completo</label>
-                                <input type="text" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                       placeholder="Seu nome completo">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Email</label>
-                                <input type="email" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                       placeholder="seu@email.com">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Mensagem</label>
-                                <textarea rows="4" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                          placeholder="Como posso ajudar você?"></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                                Enviar Mensagem
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-muted py-12">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-4 gap-8">
-                    <div>
-                        <div class="text-2xl font-bold text-primary mb-4">Dra. Ana Silva</div>
-                        <p class="text-muted-foreground">
-                            Psicóloga Clínica dedicada ao seu bem-estar emocional e desenvolvimento pessoal.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-4">Serviços</h4>
-                        <ul class="space-y-2 text-muted-foreground">
-                            <li>Terapia Individual</li>
-                            <li>Terapia de Casal</li>
-                            <li>Orientacao Profissional</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-4">Contato</h4>
-                        <ul class="space-y-2 text-muted-foreground">
-                            <li>(11) 99999-9999</li>
-                            <li>contato@dranasilva.com</li>
-                            <li>Av. Paulista, 1000 - SP</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-4">Redes Sociais</h4>
-                        <div class="flex space-x-4">
-                            <a href="#" class="text-primary hover:text-primary/80">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-primary hover:text-primary/80">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10zm5.859 7.75c.205 1.724-.538 3.157-1.262 4.098-.731.949-1.732 1.792-2.917 1.855-1.185.063-1.672-.73-2.794-.73-1.123 0-1.632.73-2.794.714-1.161-.016-2.141-.921-2.872-1.869-1.565-2.127-1.726-6.126.739-8.084.938-.892 2.195-1.367 3.282-1.367 1.087 0 2.178.471 3.014.471.836 0 1.879-.471 3.173-.471 1.025 0 2.24.405 3.178 1.248-2.785 1.533-2.376 5.135-.537 6.655z"></path>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-primary hover:text-primary/80">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605
+</body>
+</html>
