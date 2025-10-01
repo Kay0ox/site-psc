@@ -53,7 +53,7 @@ const PsicologaWebsite = () => {
       <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-background/90 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold text-primary">Dra. Ana Silva</div>
+            <div className="text-2xl font-bold text-primary">Dra. Kattily Formiga</div>
             <nav className="hidden md:flex space-x-8">
               <a href="#inicio" className="hover:text-primary transition-colors">Início</a>
               <a href="#sobre" className="hover:text-primary transition-colors">Sobre</a>
