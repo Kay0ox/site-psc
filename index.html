@@ -1,76 +1,160 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dra. Kettily Formiga | Psicóloga</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-gray-50 text-gray-900 font-sans">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psicóloga Kettily Formiga</title>
+  <style>
+    :root {
+      --verde-claro: #A0B896;
+      --verde-escuro: #839079;
+      --bege: #DDD6D1;
+    }
 
-  <!-- Header -->
-  <header class="fixed w-full z-50 bg-white shadow">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold text-blue-600">Dra. Kettily Formiga</div>
-      <nav class="hidden md:flex space-x-8">
-        <a href="#inicio" class="hover:text-blue-600">Início</a>
-        <a href="#sobre" class="hover:text-blue-600">Sobre</a>
-        <a href="#servicos" class="hover:text-blue-600">Serviços</a>
-        <a href="#faq" class="hover:text-blue-600">Perguntas</a>
-        <a href="#contato" class="hover:text-blue-600">Contato</a>
-      </nav>
-      <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Agendar Consulta</button>
-    </div>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bege);
+      color: var(--verde-escuro);
+    }
+
+    header {
+      background-color: var(--verde-claro);
+      display: flex;
+      align-items: center;
+      padding: 15px;
+    }
+
+    header img {
+      height: 70px;
+      margin-right: 20px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .banner {
+      width: 100%;
+      height: 400px;
+      background: url("kettilyformiga_b08.jpg") center/cover no-repeat;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .sobre {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .sobre img {
+      width: 300px;
+      border-radius: 15px;
+    }
+
+    .faq {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .faq h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--verde-escuro);
+    }
+
+    .faq-item {
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--verde-claro);
+    }
+
+    .faq-item button {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--verde-escuro);
+    }
+
+    .faq-item div {
+      display: none;
+      padding: 0 15px 15px;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: var(--verde-escuro);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="KETTILY FORMIGA 6.png" alt="Logo Kettily Formiga">
+    <h1>Psicóloga Kettily Formiga</h1>
   </header>
 
-  <!-- Hero -->
-  <section id="inicio" class="relative h-screen flex items-center justify-center">
-    <img src="https://placeholder-image-service.onrender.com/image/1920x1080?prompt=Serene%20therapy%20office"
-         alt="Consultório aconchegante" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative z-10 text-center text-white px-6">
-      <h1 class="text-5xl md:text-7xl font-bold mb-6">Cuidando da Sua Mente</h1>
-      <p class="text-xl md:text-2xl mb-8">Psicologia clínica com humanidade e excelência técnica</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">Começar Agora</button>
-        <button class="border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900">Saber Mais</button>
-      </div>
+  <div class="banner"></div>
+
+  <section class="sobre">
+    <img src="kettilyformiga_b01.jpg" alt="Kettily Formiga">
+    <div>
+      <h2>Sobre Mim</h2>
+      <p>Sou a psicóloga Kettily Formiga, dedicada a ajudar pessoas a encontrarem equilíbrio emocional e qualidade de vida. Atuo com empatia, acolhimento e técnicas baseadas em evidências científicas.</p>
     </div>
   </section>
 
-  <!-- Sobre -->
-  <section id="sobre" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <img src="https://placeholder-image-service.onrender.com/image/500x600?prompt=Professional%20female%20psychologist"
-           alt="Psicóloga" class="rounded-lg shadow-xl w-full" />
-      <div>
-        <h2 class="text-4xl font-bold mb-6">Sobre a Dra. Kettily Formiga</h2>
-        <p class="text-lg mb-6">
-          Com mais de 10 anos de experiência em psicologia clínica, ofereço um atendimento humanizado
-          e baseado em evidências científicas. Minha abordagem combina técnicas da TCC com uma escuta acolhedora.
-        </p>
-        <div class="grid grid-cols-2 gap-6">
-          <div class="text-center">
-            <div class="text-3xl font-bold text-blue-600">500+</div>
-            <div>Pacientes Atendidos</div>
-          </div>
-          <div class="text-center">
-            <div class="text-3xl font-bold text-blue-600">10+</div>
-            <div>Anos de Experiência</div>
-          </div>
-        </div>
-      </div>
+  <section class="faq">
+    <h2>Perguntas Frequentes</h2>
+
+    <div class="faq-item">
+      <button>Quais abordagens psicológicas você utiliza?</button>
+      <div>Trabalho com abordagem cognitivo-comportamental, que busca compreender pensamentos, emoções e comportamentos.</div>
+    </div>
+
+    <div class="faq-item">
+      <button>O atendimento pode ser online?</button>
+      <div>Sim, realizo atendimentos presenciais e online, garantindo acolhimento em qualquer lugar.</div>
+    </div>
+
+    <div class="faq-item">
+      <button>Qual a duração de uma sessão?</button>
+      <div>Cada sessão dura em média 50 minutos.</div>
+    </div>
+
+    <div class="faq-item">
+      <button>O atendimento é sigiloso?</button>
+      <div>Sim, todo processo terapêutico segue o Código de Ética Profissional, assegurando sigilo e respeito.</div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-200 py-12">
-    <div class="container mx-auto px-6 text-center">
-      <h4 class="text-2xl font-bold text-blue-600 mb-2">Dra. Kettily Formiga</h4>
-      <p class="text-gray-600">Psicóloga Clínica dedicada ao seu bem-estar emocional.</p>
-      <p class="mt-6 text-gray-500">&copy; 2024 Dra. Kettily Formiga. Todos os direitos reservados.</p>
-    </div>
+  <footer>
+    <p>© 2025 Psicóloga Kettily Formiga | Todos os direitos reservados</p>
+    <p>Contato: contato@kettilyformiga.com</p>
   </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".faq-item button");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const content = btn.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+      });
+    });
+  </script>
 
 </body>
 </html>
