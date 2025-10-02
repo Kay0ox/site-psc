@@ -1,68 +1,535 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Psicóloga Kettily Formiga</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- SEO Meta Tags -->
+    <title>Dra. Kettily Formiga - Psicóloga Clínica | Terapia Online e Presencial</title>
+    <meta name="description" content="Psicóloga clínica especializada em ansiedade, depressão e autoestima. Atendimento online e presencial com abordagem humanizada. CRP 00/0000." />
+    <meta name="keywords" content="psicóloga, terapia, ansiedade, depressão, autoestima, terapia online, João Pessoa" />
+    <meta name="author" content="Dra. Kettily Formiga" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Dra. Kettily Formiga - Psicóloga Clínica" />
+    <meta property="og:description" content="Psicóloga clínica especializada em ansiedade, depressão e autoestima. Atendimento online e presencial." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kettilyformiga.com.br" />
+    <meta property="og:image" content="https://kettilyformiga.com.br/assets/og-image.jpg" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dra. Kettily Formiga - Psicóloga Clínica" />
+    <meta name="twitter:description" content="Psicóloga clínica especializada em ansiedade, depressão e autoestima." />
+    <meta name="twitter:image" content="https://kettilyformiga.com.br/assets/twitter-image.jpg" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MedicalBusiness",
+        "name": "Dra. Kettily Formiga - Psicóloga Clínica",
+        "description": "Psicóloga clínica especializada em ansiedade, depressão e autoestima",
+        "url": "https://kettilyformiga.com.br",
+        "telephone": "+55-83-99999-9999",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rua Bento Gonçalves, 165",
+            "addressLocality": "João Pessoa",
+            "addressRegion": "PB",
+            "postalCode": "58000-000",
+            "addressCountry": "BR"
+        },
+        "openingHours": "Mo-Fr 08:00-18:00",
+        "priceRange": "$$",
+        "medicalSpecialty": "Psychology"
+    }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" as="style">
 </head>
+
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo">Kettily Formiga</div>
-    <nav>
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#faq">Perguntas</a>
-      <a href="#contato">Contato</a>
-    </nav>
-    <button class="btn-primary">Agendar Consulta</button>
-  </header>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <!-- Header -->
+    <header class="header" id="topo" role="banner">
+        <div class="container nav-wrap">
+            <a class="brand" href="#topo" aria-label="Página inicial - Dra. Kettily Formiga">
+                <div class="brand__logo">KF</div>
+                <div class="brand__text">
+                    <strong>Dra. Kettily Formiga</strong>
+                    <small>Psicóloga Clínica</small>
+                </div>
+            </a>
+            <button class="nav-toggle" id="menu-toggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav" id="nav" role="navigation" aria-label="Menu principal">
+                <a href="#sobre">Sobre</a>
+                <a href="#abordagem">Abordagem</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#curiosidades">Dicas</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contato" class="btn btn--small">Contato</a>
+            </nav>
+        </div>
+    </header>
 
-  <!-- HERO -->
-  <section id="inicio" class="hero">
-    <div class="overlay"></div>
-    <div class="content">
-      <h1>Cuidando da Sua Mente</h1>
-      <p>Psicologia clínica com humanidade e excelência técnica</p>
-      <div class="buttons">
-        <button class="btn-primary">Começar Agora</button>
-        <button class="btn-outline">Saber Mais</button>
-      </div>
-    </div>
-  </section>
+    <!-- Main Content -->
+    <main id="main">
+        <!-- Hero -->
+        <section class="hero section" id="home" aria-label="Apresentação principal">
+            <div class="container hero__grid">
+                <div class="hero__text" id="hero-content">
+                    <h1>Cuidando da sua saúde mental com acolhimento e profissionalismo</h1>
+                    <p>Sou Kettily Formiga, psicóloga clínica especializada em ajudar pessoas a superarem ansiedade, depressão e desenvolverem uma autoestima saudável. Meu trabalho é baseado no respeito à sua história única e na construção de estratégias personalizadas.</p>
+                    <div class="cta-row">
+                        <a class="btn"
+                            href="https://wa.me/5583999999999?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Kettily."
+                            target="_blank" rel="noopener" aria-label="Agendar consulta via WhatsApp">
+                            📱 Agendar no WhatsApp
+                        </a>
+                        <a class="btn btn--ghost" href="#contato">💬 Fale comigo</a>
+                    </div>
+                    <ul class="hero__badges" role="list">
+                        <li>✓ CRP 21/05678 - Registro ativo</li>
+                        <li>✓ Especialização em TCC</li>
+                        <li>✓ Atendimento online e presencial</li>
+                        <li>✓ Mais de 5 anos de experiência</li>
+                    </ul>
+                </div>
+                <div class="hero__art" aria-hidden="true">
+                    <div class="hero-illustration">
+                    </div>
+                </div>
+            </div>
 
-  <!-- SERVIÇOS -->
-  <section id="servicos" class="servicos">
-    <h2>Serviços Oferecidos</h2>
-    <div class="grid">
-      <div class="card">Terapia Individual</div>
-      <div class="card">Terapia de Casal</div>
-      <div class="card">Orientação Profissional</div>
-    </div>
-  </section>
+            <div class="cta-cards container">
+                <a class="cta-card" href="#contato" aria-label="Entrar em contato">
+                    <div class="cta-card__icon">💬</div>
+                    <h3>Entre em contato</h3>
+                    <p>Me envie uma mensagem e tire suas dúvidas sobre terapia.</p>
+                </a>
+                <a class="cta-card" href="https://wa.me/5583999999999?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta."
+                    target="_blank" rel="noopener" aria-label="Agendar sessão via WhatsApp">
+                    <div class="cta-card__icon">📅</div>
+                    <h3>Agendar sessão</h3>
+                    <p>Escolha um horário pelo WhatsApp de forma prática e rápida.</p>
+                </a>
+            </div>
+        </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="faq">
-    <h2>Perguntas Frequentes</h2>
-    <div class="faq-item">
-      <button>Como funciona a primeira consulta?</button>
-      <div class="answer">É um momento de acolhimento para conhecer você.</div>
-    </div>
-  </section>
+        <!-- Sobre mim -->
+        <section class="section" id="sobre">
+            <div class="container two-col">
+                <div>
+                    <h2>Sobre mim</h2>
+                    <p>Sou psicóloga clínica formada pela Universidade Federal da Paraíba, com especialização em Terapia Cognitivo-Comportamental (TCC) e mais de 5 anos de experiência no atendimento clínico. Minha abordagem é humanizada e baseada em evidências científicas.</p>
+                    
+                    <p>Trabalho especialmente com questões relacionadas à ansiedade, depressão, autoestima, relacionamentos e desenvolvimento pessoal. Acredito que cada pessoa tem um potencial único de crescimento e transformação, e meu papel é facilitar esse processo de descoberta e cura.</p>
+                    
+                    <p>Atendo adolescentes a partir de 16 anos, adultos e casais, oferecendo sessões tanto online quanto presenciais em meu consultório no centro de João Pessoa.</p>
+                    
+                    <ul class="list-check" role="list">
+                        <li>CRP 21/05678 • Formação em TCC pelo Instituto Beck</li>
+                        <li>Especialização em Saúde Mental pela UFPB</li>
+                        <li>Formação continuada em Terapia de Casais</li>
+                        <li>Membro da Associação Brasileira de Psicoterapia Cognitiva</li>
+                    </ul>
+                </div>
+                <aside class="card media-card">
+                    <div class="media-ph">
+                        <img src="assets/dra-kettily-profile.jpg" alt="Dra. Kettily Formiga em seu consultório" loading="lazy">
+                    </div>
+                    <p class="muted">Dra. Kettily Formiga - CRP 21/05678</p>
+                    <div class="credentials">
+                        <span class="credential">🎓 UFPB</span>
+                        <span class="credential">📋 CRP 21/05678</span>
+                        <span class="credential">🧠 TCC</span>
+                    </div>
+                </aside>
+            </div>
+        </section>
 
-  <!-- CONTATO -->
-  <section id="contato" class="contato">
-    <h2>Contato</h2>
-    <form>
-      <input type="text" placeholder="Seu nome">
-      <input type="email" placeholder="Seu email">
-      <textarea placeholder="Mensagem"></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
+        <!-- Abordagem -->
+        <section class="section" id="abordagem">
+            <div class="container">
+                <h2>Como posso te ajudar</h2>
+                <p class="section-intro">Minha abordagem terapêutica é centrada na pessoa, combinando técnicas da Terapia Cognitivo-Comportamental com um olhar humanizado e acolhedor.</p>
+                
+                <div class="features">
+                    <article class="feature">
+                        <div class="feature__icon">🤗</div>
+                        <h3>Acolhimento genuíno</h3>
+                        <p>Um espaço seguro e livre de julgamentos, onde você pode falar abertamente sobre suas dores, medos e objetivos de vida.</p>
+                    </article>
+                    <article class="feature">
+                        <div class="feature__icon">🛠️</div>
+                        <h3>Estratégias práticas</h3>
+                        <p>Ferramentas baseadas em evidências científicas para manejar ansiedade, regular emoções e modificar padrões de pensamento.</p>
+                    </article>
+                    <article class="feature">
+                        <div class="feature__icon">📈</div>
+                        <h3>Evolução contínua</h3>
+                        <p>Acompanhamento próximo com metas claras e mensuráveis para que você perceba sua evolução a cada sessão.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-  <script src="script.js"></script>
+        <!-- Serviços -->
+        <section class="section" id="servicos">
+            <div class="container">
+                <h2>Serviços oferecidos</h2>
+                <div class="cards">
+                    <article class="card">
+                        <div class="card__icon">💻</div>
+                        <h3>Atendimento Online</h3>
+                        <p>Sessões por videochamada com total segurança e privacidade. Mesma qualidade do atendimento presencial, com a comodidade de estar em casa.</p>
+                        <ul class="card-features">
+                            <li>Plataforma segura e criptografada</li>
+                            <li>Flexibilidade de horários</li>
+                            <li>Ideal para quem tem dificuldade de locomoção</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card__icon">🏢</div>
+                        <h3>Atendimento Presencial</h3>
+                        <p>Consultório acolhedor e confortável no centro de João Pessoa, com fácil acesso e estacionamento próximo.</p>
+                        <ul class="card-features">
+                            <li>Ambiente climatizado e reservado</li>
+                            <li>Localização central</li>
+                            <li>Protocolos de segurança sanitária</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card__icon">😰</div>
+                        <h3>Terapia para Ansiedade</h3>
+                        <p>Tratamento especializado para transtornos de ansiedade, incluindo técnicas de respiração, reestruturação cognitiva e exposição gradual.</p>
+                        <ul class="card-features">
+                            <li>Técnicas de relaxamento</li>
+                            <li>Manejo de crises de ansiedade</li>
+                            <li>Prevenção de recaídas</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card__icon">💕</div>
+                        <h3>Terapia de Casais</h3>
+                        <p>Fortalecimento de vínculos através de comunicação não-violenta, alinhamento de expectativas e resolução de conflitos.</p>
+                        <ul class="card-features">
+                            <li>Melhoria da comunicação</li>
+                            <li>Resolução de conflitos</li>
+                            <li>Fortalecimento da intimidade</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curiosidades -->
+        <section class="section" id="curiosidades">
+            <div class="container">
+                <h2>Dicas de saúde mental</h2>
+                <p class="section-intro">Pequenas práticas que podem fazer uma grande diferença no seu bem-estar emocional.</p>
+                
+                <div class="facts">
+                    <div class="fact">
+                        <div class="fact__icon">🫁</div>
+                        <strong>Respiração 4-7-8</strong>
+                        <span>Inspire por 4 segundos, segure por 7 e expire por 8. Repita 4 vezes para reduzir ansiedade instantaneamente.</span>
+                    </div>
+                    <div class="fact">
+                        <div class="fact__icon">📝</div>
+                        <strong>Diário de gratidão</strong>
+                        <span>Anote 3 coisas pelas quais você é grato todos os dias. Isso treina seu cérebro para focar no positivo.</span>
+                    </div>
+                    <div class="fact">
+                        <div class="fact__icon">😴</div>
+                        <strong>Higiene do sono</strong>
+                        <span>Dormir e acordar no mesmo horário todos os dias melhora significativamente o humor e a concentração.</span>
+                    </div>
+                    <div class="fact">
+                        <div class="fact__icon">🚶</div>
+                        <strong>Caminhada de 10 minutos</strong>
+                        <span>Uma breve caminhada ao ar livre pode reduzir sintomas de depressão e aumentar a energia.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Depoimentos -->
+        <section class="section" id="depoimentos" aria-label="Depoimentos de pacientes">
+            <div class="container">
+                <h2>O que dizem meus pacientes</h2>
+                <div class="slider" id="slider">
+                    <div class="slider__track" id="slider-track">
+                        <article class="slide">
+                            <div class="slide__rating">⭐⭐⭐⭐⭐</div>
+                            <blockquote>"Comecei a terapia em um momento muito difícil da minha vida. A Dra. Kettily me acolheu com muito carinho e profissionalismo. Hoje me sinto mais leve e com ferramentas práticas para lidar com a ansiedade. Recomendo de olhos fechados!"</blockquote>
+                            <p class="author">— Maria S., 32 anos</p>
+                        </article>
+                        <article class="slide">
+                            <div class="slide__rating">⭐⭐⭐⭐⭐</div>
+                            <blockquote>"As sessões online foram fundamentais durante a pandemia. A doutora conseguiu me ajudar a entender meus padrões de pensamento e a reorganizar minha rotina. Sinto que evoluí muito como pessoa."</blockquote>
+                            <p class="author">— João P., 28 anos</p>
+                        </article>
+                        <article class="slide">
+                            <div class="slide__rating">⭐⭐⭐⭐⭐</div>
+                            <blockquote>"Profissional extremamente competente e humana. Nos ajudou a melhorar nossa comunicação como casal e a fortalecer nosso relacionamento. Muito grata por todo o apoio!"</blockquote>
+                            <p class="author">— Ana e Carlos, casal há 8 anos</p>
+                        </article>
+                        <article class="slide">
+                            <div class="slide__rating">⭐⭐⭐⭐⭐</div>
+                            <blockquote>"Estava com muita dificuldade para lidar com a pressão do trabalho. A terapia me deu clareza sobre meus limites e me ensinou técnicas para gerenciar o estresse. Mudou minha vida!"</blockquote>
+                            <p class="author">— Roberto M., 35 anos</p>
+                        </article>
+                    </div>
+                    <button class="slider__btn prev" id="prev" aria-label="Depoimento anterior">‹</button>
+                    <button class="slider__btn next" id="next" aria-label="Próximo depoimento">›</button>
+                    <div class="slider__dots" id="dots" aria-label="Navegação de depoimentos"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <div class="container">
+                <h2>Perguntas frequentes</h2>
+                <div class="accordion" id="accordion">
+                    <div class="accordion__item">
+                        <button class="accordion__header" aria-expanded="false">
+                            <span>Como funciona a primeira sessão?</span>
+                            <span class="accordion__icon">+</span>
+                        </button>
+                        <div class="accordion__panel">
+                            <p>Na primeira sessão, conversamos sobre sua demanda principal, histórico pessoal e objetivos terapêuticos. É um momento de conhecimento mútuo onde você pode tirar dúvidas sobre o processo. Você sairá com um plano inicial de cuidados personalizado.</p>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <button class="accordion__header" aria-expanded="false">
+                            <span>Atende por convênio médico?</span>
+                            <span class="accordion__icon">+</span>
+                        </button>
+                        <div class="accordion__panel">
+                            <p>Atendo de forma particular, mas forneço recibo detalhado para reembolso junto ao seu plano de saúde. Recomendo verificar previamente com seu convênio as condições de reembolso para consultas psicológicas.</p>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <button class="accordion__header" aria-expanded="false">
+                            <span>Qual a frequência ideal das sessões?</span>
+                            <span class="accordion__icon">+</span>
+                        </button>
+                        <div class="accordion__panel">
+                            <p>Geralmente recomendo sessões semanais no início do tratamento. A frequência pode ser ajustada conforme sua necessidade, disponibilidade e fase do processo terapêutico. Algumas pessoas se beneficiam de sessões quinzenais após um período inicial.</p>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <button class="accordion__header" aria-expanded="false">
+                            <span>Quanto tempo dura cada sessão?</span>
+                            <span class="accordion__icon">+</span>
+                        </button>
+                        <div class="accordion__panel">
+                            <p>Cada sessão tem duração de 50 minutos, tanto online quanto presencial. Este tempo é padronizado e permite um trabalho terapêutico adequado sem causar fadiga excessiva.</p>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <button class="accordion__header" aria-expanded="false">
+                            <span>Como funciona o atendimento online?</span>
+                            <span class="accordion__icon">+</span>
+                        </button>
+                        <div class="accordion__panel">
+                            <p>Utilizo plataformas seguras e criptografadas para as sessões online. Você receberá um link privado antes da consulta. É importante ter um local reservado, boa conexão de internet e fones de ouvido para garantir privacidade e qualidade do atendimento.</p>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <button class="accordion__header" aria-expanded="false">
+                            <span>Qual o valor da consulta?</span>
+                            <span class="accordion__icon">+</span>
+                        </button>
+                        <div class="accordion__panel">
+                            <p>Os valores são diferenciados para atendimento presencial e online. Entre em contato via WhatsApp ou formulário para informações atualizadas sobre investimento e formas de pagamento disponíveis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato -->
+        <section class="section" id="contato">
+            <div class="container two-col">
+                <div>
+                    <h2>Entre em contato</h2>
+                    <p>Estou aqui para ajudar você a dar o primeiro passo em direção ao seu bem-estar emocional. Entre em contato para tirar dúvidas ou agendar sua primeira consulta.</p>
+                    
+                    <form id="form-contato" class="form" novalidate>
+                        <div class="form-group">
+                            <label for="nome">Nome completo *</label>
+                            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required />
+                            <span class="form-error" id="nome-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+                            <span class="form-error" id="email-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(83) 99999-9999" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assunto">Assunto</label>
+                            <select id="assunto" name="assunto">
+                                <option value="">Selecione um assunto</option>
+                                <option value="primeira-consulta">Primeira consulta</option>
+                                <option value="informacoes">Informações sobre terapia</option>
+                                <option value="agendamento">Agendamento</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem *</label>
+                            <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte-me um pouco sobre o que você gostaria de conversar..." required></textarea>
+                            <span class="form-error" id="mensagem-error"></span>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="privacidade" name="privacidade" required>
+                                <span class="checkmark"></span>
+                                Li e concordo com a <a href="#politica-privacidade" target="_blank">política de privacidade</a> *
+                            </label>
+                            <span class="form-error" id="privacidade-error"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--full" id="submit-btn">
+                            <span class="btn-text">Enviar mensagem</span>
+                            <span class="btn-loading" style="display: none;">Enviando...</span>
+                        </button>
+                        
+                        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+                
+                <aside class="contact-ways">
+                    <h3>Outros canais de contato</h3>
+                    <div class="contact-methods">
+                        <a href="mailto:contato@kettilyformiga.com.br" class="contact-method">
+                            <div class="contact-method__icon">📧</div>
+                            <div>
+                                <strong>E-mail</strong>
+                                <span>contato@kettilyformiga.com.br</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://wa.me/5583999999999" target="_blank" rel="noopener" class="contact-method">
+                            <div class="contact-method__icon">📱</div>
+                            <div>
+                                <strong>WhatsApp</strong>
+                                <span>(83) 99999-9999</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://instagram.com/kettilyformiga.psi" target="_blank" rel="noopener" class="contact-method">
+                            <div class="contact-method__icon">📸</div>
+                            <div>
+                                <strong>Instagram</strong>
+                                <span>@kettilyformiga.psi</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="office-info">
+                        <h4>Consultório</h4>
+                        <div class="map-ph" aria-hidden="true">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.165531314983!2d-34.831958024250866!3d-7.106806792896589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7acc2d690750255%3A0x4df9f3377b8941f3!2sRua%20Bento%20Gon%C3%A7alves%2C%20165%20-%20Centro%2C%20Jo%C3%A3o%20Pessoa%20-%20PB!5e0!3m2!1spt-BR!2sbr!4v1755126203843!5m2!1spt-BR!2sbr"
+                                width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Localização do consultório">
+                            </iframe>
+                        </div>
+                        <address class="office-address">
+                            <strong>Endereço:</strong><br>
+                            Rua Bento Gonçalves, 165 - Sala 302<br>
+                            Centro, João Pessoa - PB<br>
+                            CEP: 58013-120
+                        </address>
+                        
+                        <div class="office-hours">
+                            <strong>Horário de atendimento:</strong><br>
+                            Segunda a sexta: 8h às 18h<br>
+                            Sábados: 8h às 12h (agendamento prévio)
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__grid">
+            <div class="footer__info">
+                <p>&copy; 2025 Dra. Kettily Formiga - Psicóloga Clínica</p>
+                <p class="footer__credentials">CRP 21/05678 • Todos os direitos reservados</p>
+            </div>
+            <nav class="footer__nav" role="navigation" aria-label="Menu do rodapé">
+                <a href="#sobre">Sobre</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#contato">Contato</a>
+                <a href="#politica-privacidade">Privacidade</a>
+            </nav>
+        </div>
+        <div class="footer__bottom">
+            <p class="footer__dev">Site desenvolvido por <a href="mailto:kayovictor26@gmail.com">Kayo Victor</a></p>
+        </div>
+    </footer>
+
+    <!-- Botão flutuante WhatsApp -->
+    <a class="wa-float" 
+       href="https://wa.me/5583999999999?text=Olá%20Dra.%20Kettily,%20gostaria%20de%20agendar%20uma%20consulta."
+       target="_blank" 
+       rel="noopener" 
+       aria-label="Agendar consulta via WhatsApp"
+       title="Clique para agendar via WhatsApp">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.89 3.297"/>
+        </svg>
+    </a>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- Analytics (substitua pelo seu código) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
 </body>
 </html>
