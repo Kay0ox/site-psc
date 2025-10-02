@@ -1,15 +1,14 @@
-// Configurações globais
+// ===== CONFIGURAÇÕES GLOBAIS =====
 const CONFIG = {
-    ANIMATION_DURATION: 300,
-    SLIDER_AUTO_PLAY: 4500,
-    PARALLAX_INTENSITY: 25,
-    INTERSECTION_THRESHOLD: 0.12,
-    FORM_SUBMIT_URL: 'https://formspree.io/f/YOUR_FORM_ID', // Substitua pelo seu ID do Formspree
-    WHATSAPP_NUMBER: '5583999999999',
-    EMAIL: 'contato@kettilyformiga.com.br'
+    animationDuration: 300,
+    scrollOffset: 100,
+    testimonialAutoplay: 5000,
+    loadingDuration: 2000,
+    whatsappNumber: '5583999999999',
+    email: 'contato@kettilyformiga.com.br'
 };
 
-// Utilitários
+// ===== UTILITÁRIOS =====
 const Utils = {
     // Debounce para otimizar performance
     debounce(func, wait) {
@@ -35,10 +34,30 @@ const Utils = {
                 inThrottle = true;
                 setTimeout(() => inThrottle = false, limit);
             }
-        };
+        }
     },
 
-    // Animação suave para números
+    // Smooth scroll para elementos
+    smoothScrollTo(element, offset = 0) {
+        const elementPosition = element.offsetTop - offset;
+        window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+        });
+    },
+
+    // Verificar se elemento está visível
+    isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    },
+
+    // Animar números (counter)
     animateNumber(element, start, end, duration) {
         const range = end - start;
         const increment = range / (duration / 16);
@@ -46,442 +65,399 @@ const Utils = {
         
         const timer = setInterval(() => {
             current += increment;
-            element.textContent = Math.floor(current);
-            
             if (current >= end) {
-                element.textContent = end;
+                current = end;
                 clearInterval(timer);
             }
+            element.textContent = Math.floor(current);
         }, 16);
     },
 
-    // Validação de email
-    isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    // Validar email
+    validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
     },
 
-    // Formatação de telefone
-    formatPhone(phone) {
-        const cleaned = phone.replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{2})(\d{4,5})(\d{4})$/);
-        if (match) {
-            return `(${match[1]}) ${match[2]}-${match[3]}`;
-        }
-        return phone;
+    // Validar telefone brasileiro
+    validatePhone(phone) {
+        const re = /^(\+55\s?)?(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$/;
+        return re.test(phone);
     }
 };
 
-// Gerenciador de Menu Mobile
-class MobileMenu {
+// ===== LOADING SCREEN =====
+class LoadingScreen {
     constructor() {
-        this.toggle = document.getElementById('menu-toggle');
+        this.loadingElement = document.getElementById('loading-screen');
+        this.init();
+    }
+
+    init() {
+        // Simular carregamento
+        setTimeout(() => {
+            this.hide();
+        }, CONFIG.loadingDuration);
+    }
+
+    hide() {
+        if (this.loadingElement) {
+            this.loadingElement.classList.add('hidden');
+            setTimeout(() => {
+                this.loadingElement.style.display = 'none';
+            }, 500);
+        }
+    }
+}
+
+// ===== HEADER DINÂMICO =====
+class DynamicHeader {
+    constructor() {
+        this.header = document.getElementById('header');
+        this.menuToggle = document.getElementById('menu-toggle');
         this.nav = document.getElementById('nav');
-        this.isOpen = false;
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.lastScrollY = window.scrollY;
         
         this.init();
     }
 
     init() {
-        if (!this.toggle || !this.nav) return;
+        this.bindEvents();
+        this.updateActiveLink();
+    }
 
-        this.toggle.addEventListener('click', () => this.toggleMenu());
-        
-        // Fechar menu ao clicar em links
-        this.nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => this.closeMenu());
+    bindEvents() {
+        // Scroll do header
+        window.addEventListener('scroll', Utils.throttle(() => {
+            this.handleScroll();
+        }, 10));
+
+        // Menu mobile
+        if (this.menuToggle) {
+            this.menuToggle.addEventListener('click', () => {
+                this.toggleMobileMenu();
+            });
+        }
+
+        // Links de navegação
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                this.handleNavClick(e);
+            });
         });
 
         // Fechar menu ao clicar fora
         document.addEventListener('click', (e) => {
-            if (this.isOpen && !this.nav.contains(e.target) && !this.toggle.contains(e.target)) {
-                this.closeMenu();
-            }
-        });
-
-        // Fechar menu com ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                this.closeMenu();
+            if (!this.header.contains(e.target) && this.nav.classList.contains('active')) {
+                this.closeMobileMenu();
             }
         });
     }
 
-    toggleMenu() {
-        this.isOpen ? this.closeMenu() : this.openMenu();
+    handleScroll() {
+        const currentScrollY = window.scrollY;
+        
+        // Adicionar classe scrolled
+        if (currentScrollY > 50) {
+            this.header.classList.add('scrolled');
+        } else {
+            this.header.classList.remove('scrolled');
+        }
+
+        // Esconder/mostrar header baseado na direção do scroll
+        if (currentScrollY > this.lastScrollY && currentScrollY > 200) {
+            this.header.style.transform = 'translateY(-100%)';
+        } else {
+            this.header.style.transform = 'translateY(0)';
+        }
+
+        this.lastScrollY = currentScrollY;
+        this.updateActiveLink();
     }
 
-    openMenu() {
-        this.nav.classList.add('open');
-        this.toggle.setAttribute('aria-expanded', 'true');
-        this.isOpen = true;
-        document.body.style.overflow = 'hidden'; // Previne scroll
+    toggleMobileMenu() {
+        this.menuToggle.classList.toggle('active');
+        this.nav.classList.toggle('active');
+        document.body.style.overflow = this.nav.classList.contains('active') ? 'hidden' : '';
     }
 
-    closeMenu() {
-        this.nav.classList.remove('open');
-        this.toggle.setAttribute('aria-expanded', 'false');
-        this.isOpen = false;
+    closeMobileMenu() {
+        this.menuToggle.classList.remove('active');
+        this.nav.classList.remove('active');
         document.body.style.overflow = '';
     }
-}
 
-// Gerenciador de Rolagem Suave
-class SmoothScroll {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const href = anchor.getAttribute('href');
-                if (href.length > 1) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        this.scrollToElement(target);
-                    }
-                }
-            });
-        });
-    }
-
-    scrollToElement(element) {
-        const headerHeight = document.querySelector('.header').offsetHeight;
-        const targetPosition = element.offsetTop - headerHeight - 20;
+    handleNavClick(e) {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
         
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+        if (targetElement) {
+            Utils.smoothScrollTo(targetElement, CONFIG.scrollOffset);
+            this.closeMobileMenu();
+        }
+    }
+
+    updateActiveLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + CONFIG.scrollOffset + 50;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            const correspondingLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                this.navLinks.forEach(link => link.classList.remove('active'));
+                if (correspondingLink) {
+                    correspondingLink.classList.add('active');
+                }
+            }
         });
     }
 }
 
-// Gerenciador de Animações de Entrada
+// ===== ANIMAÇÕES DE ENTRADA =====
 class ScrollAnimations {
     constructor() {
-        this.observer = null;
+        this.animatedElements = document.querySelectorAll('[data-aos]');
+        this.statsAnimated = false;
         this.init();
     }
 
     init() {
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    // Para elementos com animação de números
-                    if (entry.target.dataset.animate === 'number') {
-                        this.animateNumbers(entry.target);
-                    }
-                }
+        this.bindEvents();
+        this.checkAnimations();
+    }
+
+    bindEvents() {
+        window.addEventListener('scroll', Utils.throttle(() => {
+            this.checkAnimations();
+        }, 100));
+    }
+
+    checkAnimations() {
+        this.animatedElements.forEach(element => {
+            if (this.isElementInViewport(element)) {
+                element.classList.add('aos-animate');
+            }
+        });
+
+        // Animar estatísticas do hero
+        this.animateStats();
+    }
+
+    isElementInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        return rect.top <= windowHeight * 0.8;
+    }
+
+    animateStats() {
+        if (this.statsAnimated) return;
+
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection && this.isElementInViewport(statsSection)) {
+            const statItems = document.querySelectorAll('.stat-item');
+            
+            statItems.forEach(item => {
+                const numberElement = item.querySelector('.stat-number');
+                const targetValue = parseInt(item.getAttribute('data-count'));
+                
+                Utils.animateNumber(numberElement, 0, targetValue, 2000);
             });
-        }, { 
-            threshold: CONFIG.INTERSECTION_THRESHOLD,
-            rootMargin: '0px 0px -50px 0px'
-        });
 
-        // Observar todas as seções
-        document.querySelectorAll('.section').forEach(section => {
-            this.observer.observe(section);
-        });
-
-        // Observar elementos especiais
-        document.querySelectorAll('[data-animate]').forEach(element => {
-            this.observer.observe(element);
-        });
-    }
-
-    animateNumbers(container) {
-        const numbers = container.querySelectorAll('[data-number]');
-        numbers.forEach(element => {
-            const target = parseInt(element.dataset.number);
-            Utils.animateNumber(element, 0, target, 2000);
-        });
-    }
-}
-
-// Efeito Parallax no Hero
-class ParallaxEffect {
-    constructor() {
-        this.heroContent = document.getElementById('hero-content');
-        this.isEnabled = window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
-        if (this.isEnabled && this.heroContent) {
-            this.init();
+            this.statsAnimated = true;
         }
     }
-
-    init() {
-        const handleMouseMove = Utils.throttle((e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / CONFIG.PARALLAX_INTENSITY;
-            const y = (window.innerHeight / 2 - e.pageY) / CONFIG.PARALLAX_INTENSITY;
-            
-            this.heroContent.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
-        }, 16);
-
-        document.addEventListener('mousemove', handleMouseMove);
-
-        // Reset ao sair da área
-        document.addEventListener('mouseleave', () => {
-            this.heroContent.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-        });
-    }
 }
 
-// Slider de Depoimentos Melhorado
+// ===== SLIDER DE DEPOIMENTOS =====
 class TestimonialsSlider {
     constructor() {
-        this.track = document.getElementById('slider-track');
-        this.slides = this.track ? Array.from(this.track.children) : [];
-        this.prevBtn = document.getElementById('prev');
-        this.nextBtn = document.getElementById('next');
-        this.dotsContainer = document.getElementById('dots');
-        this.dots = [];
-        this.currentIndex = 0;
-        this.autoPlayTimer = null;
-        this.isPlaying = true;
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-
-        if (this.slides.length > 0) {
+        this.slider = document.getElementById('testimonials-slider');
+        this.slides = document.querySelectorAll('.testimonial-card');
+        this.dots = document.querySelectorAll('.dot');
+        this.prevBtn = document.getElementById('testimonial-prev');
+        this.nextBtn = document.getElementById('testimonial-next');
+        this.currentSlide = 0;
+        this.autoplayInterval = null;
+        
+        if (this.slider) {
             this.init();
         }
     }
 
     init() {
-        this.createDots();
-        this.setupEventListeners();
-        this.updateSlider();
-        this.startAutoPlay();
-        this.setupTouchEvents();
+        this.bindEvents();
+        this.startAutoplay();
+        this.showSlide(0);
     }
 
-    createDots() {
-        this.slides.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'dot';
-            dot.setAttribute('aria-label', `Ir para depoimento ${index + 1}`);
-            dot.addEventListener('click', () => this.goToSlide(index));
-            this.dotsContainer.appendChild(dot);
-            this.dots.push(dot);
+    bindEvents() {
+        // Botões de navegação
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.prevSlide();
+            });
+        }
+
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.nextSlide();
+            });
+        }
+
+        // Dots de navegação
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.goToSlide(index);
+            });
         });
-    }
 
-    setupEventListeners() {
-        this.prevBtn?.addEventListener('click', () => this.previousSlide());
-        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+        // Pausar autoplay ao hover
+        this.slider.addEventListener('mouseenter', () => {
+            this.stopAutoplay();
+        });
 
-        // Pausar autoplay ao interagir
-        const slider = this.track.parentElement;
-        slider.addEventListener('mouseenter', () => this.pauseAutoPlay());
-        slider.addEventListener('mouseleave', () => this.resumeAutoPlay());
-        slider.addEventListener('focusin', () => this.pauseAutoPlay());
-        slider.addEventListener('focusout', () => this.resumeAutoPlay());
+        this.slider.addEventListener('mouseleave', () => {
+            this.startAutoplay();
+        });
 
-        // Controles de teclado
-        slider.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') this.previousSlide();
+        // Navegação por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prevSlide();
             if (e.key === 'ArrowRight') this.nextSlide();
         });
+    }
 
-        // Pausar quando a página não está visível
-        document.addEventListener('visibilitychange', () => {
-            document.hidden ? this.pauseAutoPlay() : this.resumeAutoPlay();
+    showSlide(index) {
+        // Esconder todos os slides
+        this.slides.forEach(slide => {
+            slide.classList.remove('active');
         });
 
-        // Ajustar altura ao redimensionar
-        window.addEventListener('resize', Utils.debounce(() => this.updateHeight(), 250));
-    }
-
-    setupTouchEvents() {
-        const slider = this.track.parentElement;
-        
-        slider.addEventListener('touchstart', (e) => {
-            this.touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        slider.addEventListener('touchend', (e) => {
-            this.touchEndX = e.changedTouches[0].screenX;
-            this.handleSwipe();
-        }, { passive: true });
-    }
-
-    handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = this.touchStartX - this.touchEndX;
-
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                this.nextSlide();
-            } else {
-                this.previousSlide();
-            }
-        }
-    }
-
-    updateSlider() {
-        // Atualizar posição do track
-        this.track.style.transform = `translateX(-${this.currentIndex * 100}%)`;
-        
-        // Atualizar dots
-        this.dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === this.currentIndex);
+        // Remover active de todos os dots
+        this.dots.forEach(dot => {
+            dot.classList.remove('active');
         });
 
-        // Atualizar altura
-        this.updateHeight();
-
-        // Anunciar mudança para leitores de tela
-        this.announceSlideChange();
-    }
-
-    updateHeight() {
-        const currentSlide = this.slides[this.currentIndex];
-        if (currentSlide) {
-            const height = currentSlide.offsetHeight;
-            this.track.parentElement.style.height = `${height}px`;
+        // Mostrar slide atual
+        if (this.slides[index]) {
+            this.slides[index].classList.add('active');
         }
-    }
 
-    announceSlideChange() {
-        const announcement = `Depoimento ${this.currentIndex + 1} de ${this.slides.length}`;
-        const announcer = document.createElement('div');
-        announcer.setAttribute('aria-live', 'polite');
-        announcer.setAttribute('aria-atomic', 'true');
-        announcer.className = 'sr-only';
-        announcer.textContent = announcement;
-        document.body.appendChild(announcer);
-        setTimeout(() => document.body.removeChild(announcer), 1000);
-    }
+        // Ativar dot correspondente
+        if (this.dots[index]) {
+            this.dots[index].classList.add('active');
+        }
 
-    goToSlide(index) {
-        this.currentIndex = (index + this.slides.length) % this.slides.length;
-        this.updateSlider();
-        this.restartAutoPlay();
+        this.currentSlide = index;
     }
 
     nextSlide() {
-        this.goToSlide(this.currentIndex + 1);
+        const nextIndex = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
     }
 
-    previousSlide() {
-        this.goToSlide(this.currentIndex - 1);
+    prevSlide() {
+        const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        this.goToSlide(prevIndex);
     }
 
-    startAutoPlay() {
-        if (this.isPlaying && this.slides.length > 1) {
-            this.autoPlayTimer = setInterval(() => this.nextSlide(), CONFIG.SLIDER_AUTO_PLAY);
+    goToSlide(index) {
+        this.showSlide(index);
+        this.resetAutoplay();
+    }
+
+    startAutoplay() {
+        this.autoplayInterval = setInterval(() => {
+            this.nextSlide();
+        }, CONFIG.testimonialAutoplay);
+    }
+
+    stopAutoplay() {
+        if (this.autoplayInterval) {
+            clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
         }
     }
 
-    pauseAutoPlay() {
-        if (this.autoPlayTimer) {
-            clearInterval(this.autoPlayTimer);
-            this.autoPlayTimer = null;
-        }
-    }
-
-    resumeAutoPlay() {
-        if (this.isPlaying && !this.autoPlayTimer) {
-            this.startAutoPlay();
-        }
-    }
-
-    restartAutoPlay() {
-        this.pauseAutoPlay();
-        this.resumeAutoPlay();
+    resetAutoplay() {
+        this.stopAutoplay();
+        this.startAutoplay();
     }
 }
 
-// Accordion FAQ Melhorado
+// ===== ACORDEÃO FAQ =====
 class FAQAccordion {
     constructor() {
-        this.items = document.querySelectorAll('.accordion__item');
+        this.faqItems = document.querySelectorAll('.faq-item');
         this.init();
     }
 
     init() {
-        this.items.forEach(item => {
-            const header = item.querySelector('.accordion__header');
-            const panel = item.querySelector('.accordion__panel');
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        this.faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
             
-            if (header && panel) {
-                header.addEventListener('click', () => this.toggleItem(item));
-                
-                // Controle por teclado
-                header.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        this.toggleItem(item);
-                    }
-                });
-            }
+            question.addEventListener('click', () => {
+                this.toggleItem(item);
+            });
         });
     }
 
     toggleItem(item) {
-        const header = item.querySelector('.accordion__header');
-        const panel = item.querySelector('.accordion__panel');
-        const isOpen = item.classList.contains('open');
+        const isActive = item.classList.contains('active');
+        
+        // Fechar todos os itens
+        this.faqItems.forEach(faqItem => {
+            faqItem.classList.remove('active');
+        });
 
-        if (isOpen) {
-            this.closeItem(item);
-        } else {
-            // Fechar outros itens (opcional - remova se quiser múltiplos abertos)
-            // this.items.forEach(otherItem => {
-            //     if (otherItem !== item) this.closeItem(otherItem);
-            // });
-            
-            this.openItem(item);
+        // Abrir o item clicado se não estava ativo
+        if (!isActive) {
+            item.classList.add('active');
         }
-    }
-
-    openItem(item) {
-        const header = item.querySelector('.accordion__header');
-        const panel = item.querySelector('.accordion__panel');
-        
-        item.classList.add('open');
-        header.setAttribute('aria-expanded', 'true');
-        panel.style.maxHeight = panel.scrollHeight + 'px';
-    }
-
-    closeItem(item) {
-        const header = item.querySelector('.accordion__header');
-        const panel = item.querySelector('.accordion__panel');
-        
-        item.classList.remove('open');
-        header.setAttribute('aria-expanded', 'false');
-        panel.style.maxHeight = '0';
     }
 }
 
-// Validador de Formulário Avançado
-class FormValidator {
+// ===== FORMULÁRIO DE CONTATO =====
+class ContactForm {
     constructor() {
-        this.form = document.getElementById('form-contato');
-        this.submitBtn = document.getElementById('submit-btn');
-        this.messageEl = document.getElementById('form-msg');
-        this.isSubmitting = false;
-
+        this.form = document.getElementById('contact-form');
+        this.statusElement = document.getElementById('form-status');
+        
         if (this.form) {
             this.init();
         }
     }
 
     init() {
-        this.setupValidation();
-        this.setupSubmission();
-        this.setupPhoneFormatting();
+        this.bindEvents();
     }
 
-    setupValidation() {
+    bindEvents() {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleSubmit();
+        });
+
+        // Validação em tempo real
         const inputs = this.form.querySelectorAll('input, textarea, select');
-        
         inputs.forEach(input => {
-            // Validação em tempo real
-            input.addEventListener('blur', () => this.validateField(input));
-            input.addEventListener('input', () => this.clearFieldError(input));
+            input.addEventListener('blur', () => {
+                this.validateField(input);
+            });
+
+            input.addEventListener('input', () => {
+                this.clearError(input);
+            });
         });
     }
 
@@ -492,11 +468,11 @@ class FormValidator {
         let errorMessage = '';
 
         // Limpar erro anterior
-        this.clearFieldError(field);
+        this.clearError(field);
 
         // Validações específicas
         switch (fieldName) {
-            case 'nome':
+            case 'name':
                 if (!value) {
                     isValid = false;
                     errorMessage = 'Nome é obrigatório';
@@ -509,14 +485,21 @@ class FormValidator {
             case 'email':
                 if (!value) {
                     isValid = false;
-                    errorMessage = 'E-mail é obrigatório';
-                } else if (!Utils.isValidEmail(value)) {
+                    errorMessage = 'Email é obrigatório';
+                } else if (!Utils.validateEmail(value)) {
                     isValid = false;
-                    errorMessage = 'E-mail inválido';
+                    errorMessage = 'Email inválido';
                 }
                 break;
 
-            case 'mensagem':
+            case 'phone':
+                if (value && !Utils.validatePhone(value)) {
+                    isValid = false;
+                    errorMessage = 'Telefone inválido';
+                }
+                break;
+
+            case 'message':
                 if (!value) {
                     isValid = false;
                     errorMessage = 'Mensagem é obrigatória';
@@ -525,155 +508,235 @@ class FormValidator {
                     errorMessage = 'Mensagem deve ter pelo menos 10 caracteres';
                 }
                 break;
-
-            case 'privacidade':
-                if (!field.checked) {
-                    isValid = false;
-                    errorMessage = 'Você deve aceitar a política de privacidade';
-                }
-                break;
         }
 
         if (!isValid) {
-            this.showFieldError(field, errorMessage);
+            this.showError(field, errorMessage);
         }
 
         return isValid;
     }
 
-    showFieldError(field, message) {
-        const errorEl = document.getElementById(`${field.name}-error`);
-        if (errorEl) {
-            errorEl.textContent = message;
-            errorEl.classList.add('show');
+    showError(field, message) {
+        const errorElement = document.getElementById(`${field.name}-error`);
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
         }
-        field.classList.add('error');
+        field.style.borderColor = 'var(--error)';
     }
 
-    clearFieldError(field) {
-        const errorEl = document.getElementById(`${field.name}-error`);
-        if (errorEl) {
-            errorEl.textContent = '';
-            errorEl.classList.remove('show');
+    clearError(field) {
+        const errorElement = document.getElementById(`${field.name}-error`);
+        if (errorElement) {
+            errorElement.style.display = 'none';
         }
-        field.classList.remove('error');
+        field.style.borderColor = '';
     }
 
-    setupPhoneFormatting() {
-        const phoneInput = document.getElementById('telefone');
-        if (phoneInput) {
-            phoneInput.addEventListener('input', (e) => {
-                e.target.value = Utils.formatPhone(e.target.value);
-            });
-        }
-    }
-
-    setupSubmission() {
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleSubmit();
-        });
-    }
-
-    async handleSubmit() {
-        if (this.isSubmitting) return;
-
-        // Validar todos os campos
+    validateForm() {
         const requiredFields = this.form.querySelectorAll('[required]');
-        let isFormValid = true;
+        let isValid = true;
 
         requiredFields.forEach(field => {
             if (!this.validateField(field)) {
-                isFormValid = false;
+                isValid = false;
             }
         });
 
-        if (!isFormValid) {
-            this.showMessage('Por favor, corrija os erros antes de enviar.', 'error');
+        return isValid;
+    }
+
+    async handleSubmit() {
+        if (!this.validateForm()) {
+            this.showStatus('Por favor, corrija os erros no formulário.', 'error');
             return;
         }
 
-        this.isSubmitting = true;
-        this.setSubmitButtonLoading(true);
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData);
 
         try {
-            const formData = new FormData(this.form);
+            this.showStatus('Enviando mensagem...', 'loading');
             
             // Simular envio (substitua pela sua implementação)
-            await this.submitForm(formData);
+            await this.simulateSubmit(data);
             
-            this.showMessage('Mensagem enviada com sucesso! Entrarei em contato em breve.', 'success');
+            this.showStatus('Mensagem enviada com sucesso! Entrarei em contato em breve.', 'success');
             this.form.reset();
             
         } catch (error) {
-            console.error('Erro ao enviar formulário:', error);
-            this.showMessage('Erro ao enviar mensagem. Tente novamente ou entre em contato via WhatsApp.', 'error');
-        } finally {
-            this.isSubmitting = false;
-            this.setSubmitButtonLoading(false);
+            this.showStatus('Erro ao enviar mensagem. Tente novamente ou entre em contato via WhatsApp.', 'error');
         }
     }
 
-    async submitForm(formData) {
-        // Opção 1: Usar Formspree
-        if (CONFIG.FORM_SUBMIT_URL.includes('formspree')) {
-            const response = await fetch(CONFIG.FORM_SUBMIT_URL, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error('Erro no envio');
-            }
-            return response.json();
-        }
-        
-        // Opção 2: Redirecionar para WhatsApp
-        const nome = formData.get('nome');
-        const email = formData.get('email');
-        const mensagem = formData.get('mensagem');
-        
-        const whatsappMessage = `Olá! Meu nome é ${nome}.%0A%0AE-mail: ${email}%0A%0AMensagem: ${mensagem}`;
-        const whatsappUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${whatsappMessage}`;
-        
-        // Simular delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        window.open(whatsappUrl, '_blank');
+    async simulateSubmit(data) {
+        // Simular delay de envio
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('Dados do formulário:', data);
+                resolve();
+            }, 1500);
+        });
     }
 
-    setSubmitButtonLoading(loading) {
-        const btnText = this.submitBtn.querySelector('.btn-text');
-        const btnLoading = this.submitBtn.querySelector('.btn-loading');
-        
-        if (loading) {
-            btnText.style.display = 'none';
-            btnLoading.style.display = 'inline-flex';
-            this.submitBtn.disabled = true;
-        } else {
-            btnText.style.display = 'inline';
-            btnLoading.style.display = 'none';
-            this.submitBtn.disabled = false;
-        }
-    }
+    showStatus(message, type) {
+        this.statusElement.textContent = message;
+        this.statusElement.className = `form-status ${type}`;
+        this.statusElement.style.display = 'block';
 
-    showMessage(message, type) {
-        this.messageEl.textContent = message;
-        this.messageEl.className = `form-msg ${type}`;
-        
-        // Auto-hide após 5 segundos
-        setTimeout(() => {
-            this.messageEl.className = 'form-msg';
-            this.messageEl.textContent = '';
-        }, 5000);
+        if (type === 'success') {
+            setTimeout(() => {
+                this.statusElement.style.display = 'none';
+            }, 5000);
+        }
     }
 }
 
-// Gerenciador de Performance
-class PerformanceManager {
+// ===== BOTÕES DE AÇÃO =====
+class ActionButtons {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.bindWhatsAppButtons();
+        this.bindScheduleButtons();
+        this.bindBackToTop();
+    }
+
+    bindWhatsAppButtons() {
+        const whatsappButtons = document.querySelectorAll('#hero-whatsapp, #whatsapp-float');
+        
+        whatsappButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openWhatsApp();
+            });
+        });
+    }
+
+    bindScheduleButtons() {
+        const scheduleButtons = document.querySelectorAll('#agendar-btn, #hero-agendar');
+        
+        scheduleButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openScheduling();
+            });
+        });
+    }
+
+    bindBackToTop() {
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        if (backToTopBtn) {
+            // Mostrar/esconder botão baseado no scroll
+            window.addEventListener('scroll', Utils.throttle(() => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }, 100));
+
+            // Ação do botão
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    }
+
+    openWhatsApp() {
+        const message = encodeURIComponent('Olá! Gostaria de agendar uma consulta com a Dra. Kettily Formiga.');
+        const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    openScheduling() {
+        // Por enquanto, redireciona para WhatsApp
+        // Pode ser substituído por um modal de agendamento ou integração com calendário
+        const message = encodeURIComponent('Olá! Gostaria de agendar uma consulta. Quais são os horários disponíveis?');
+        const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }
+}
+
+// ===== EFEITOS VISUAIS AVANÇADOS =====
+class VisualEffects {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.initParallax();
+        this.initHoverEffects();
+        this.initCursorEffects();
+    }
+
+    initParallax() {
+        const heroShapes = document.querySelectorAll('.shape');
+        
+        window.addEventListener('scroll', Utils.throttle(() => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            heroShapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                shape.style.transform = `translateY(${rate * speed}px)`;
+            });
+        }, 10));
+    }
+
+    initHoverEffects() {
+        // Efeito de hover nos cards de serviço
+        const serviceCards = document.querySelectorAll('.service-card');
+        
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Efeito de hover nos botões
+        const buttons = document.querySelectorAll('.btn');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
+        });
+    }
+
+    initCursorEffects() {
+        // Efeito de cursor personalizado (opcional)
+        const interactiveElements = document.querySelectorAll('a, button, .service-card, .testimonial-card');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                document.body.style.cursor = 'pointer';
+            });
+
+            element.addEventListener('mouseleave', () => {
+                document.body.style.cursor = 'default';
+            });
+        });
+    }
+}
+
+// ===== PERFORMANCE E OTIMIZAÇÕES =====
+class PerformanceOptimizer {
     constructor() {
         this.init();
     }
@@ -681,119 +744,43 @@ class PerformanceManager {
     init() {
         this.lazyLoadImages();
         this.preloadCriticalResources();
-        this.setupServiceWorker();
     }
 
     lazyLoadImages() {
-        const images = document.querySelectorAll('img[loading="lazy"]');
+        const images = document.querySelectorAll('img[data-src]');
         
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src || img.src;
-                        img.classList.remove('lazy');
-                        imageObserver.unobserve(img);
-                    }
-                });
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
             });
+        });
 
-            images.forEach(img => imageObserver.observe(img));
-        }
+        images.forEach(img => imageObserver.observe(img));
     }
 
     preloadCriticalResources() {
         // Preload de fontes críticas
-        const fontUrls = [
-            'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'
+        const fontLinks = [
+            'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
+            'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap'
         ];
 
-        fontUrls.forEach(url => {
+        fontLinks.forEach(href => {
             const link = document.createElement('link');
             link.rel = 'preload';
             link.as = 'style';
-            link.href = url;
+            link.href = href;
             document.head.appendChild(link);
         });
     }
-
-    setupServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('SW registrado:', registration);
-                    })
-                    .catch(error => {
-                        console.log('SW falhou:', error);
-                    });
-            });
-        }
-    }
 }
 
-// Analytics (Google Analytics 4)
-class Analytics {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        // Configurar GA4 aqui se necessário
-        this.trackPageView();
-        this.setupEventTracking();
-    }
-
-    trackPageView() {
-        if (typeof gtag !== 'undefined') {
-            gtag('config', 'GA_MEASUREMENT_ID', {
-                page_title: document.title,
-                page_location: window.location.href
-            });
-        }
-    }
-
-    setupEventTracking() {
-        // Track clicks em botões importantes
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const action = e.target.textContent.trim();
-                this.trackEvent('button_click', {
-                    button_text: action,
-                    page_location: window.location.pathname
-                });
-            });
-        });
-
-        // Track cliques no WhatsApp
-        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
-            link.addEventListener('click', () => {
-                this.trackEvent('whatsapp_click', {
-                    page_location: window.location.pathname
-                });
-            });
-        });
-
-        // Track envio de formulário
-        const form = document.getElementById('form-contato');
-        if (form) {
-            form.addEventListener('submit', () => {
-                this.trackEvent('form_submit', {
-                    form_name: 'contact_form'
-                });
-            });
-        }
-    }
-
-    trackEvent(eventName, parameters = {}) {
-        if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, parameters);
-        }
-    }
-}
-
-// Inicialização da aplicação
+// ===== INICIALIZAÇÃO =====
 class App {
     constructor() {
         this.init();
@@ -802,7 +789,9 @@ class App {
     init() {
         // Aguardar DOM estar pronto
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.initializeComponents());
+            document.addEventListener('DOMContentLoaded', () => {
+                this.initializeComponents();
+            });
         } else {
             this.initializeComponents();
         }
@@ -810,29 +799,20 @@ class App {
 
     initializeComponents() {
         // Inicializar todos os componentes
-        new MobileMenu();
-        new SmoothScroll();
+        new LoadingScreen();
+        new DynamicHeader();
         new ScrollAnimations();
-        new ParallaxEffect();
         new TestimonialsSlider();
         new FAQAccordion();
-        new FormValidator();
-        new PerformanceManager();
-        new Analytics();
-
-        // Adicionar classe para indicar que JS está carregado
-        document.documentElement.classList.add('js-loaded');
+        new ContactForm();
+        new ActionButtons();
+        new VisualEffects();
+        new PerformanceOptimizer();
 
         // Log de inicialização
-        console.log('🌟 Site da Dra. Kettily Formiga carregado com sucesso!');
+        console.log('🎉 Site da Dra. Kettily Formiga inicializado com sucesso!');
     }
 }
 
-// Inicializar aplicação
+// ===== INICIAR APLICAÇÃO =====
 new App();
-
-// Exportar para uso global se necessário
-window.SiteApp = {
-    Utils,
-    CONFIG
-};
