@@ -1,190 +1,162 @@
 :root {
   --verde: #A0B896;
+  --musgo: #839079;
   --bege: #DDD6D1;
-  --roxo: #839079;
+  --escuro: #2f2f2f;
+  --branco: #ffffff;
+  --sombra: rgba(0,0,0,0.15);
 }
 
-/* ===== RESET ===== */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fff;
-  color: #333;
+  font-family: "Poppins", sans-serif;
+  color: var(--escuro);
+  background: var(--branco);
+  line-height: 1.6;
 }
 
-header {
+/* ===== HEADER ===== */
+.header {
+  background: var(--bege);
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
-  background: var(--bege);
   position: fixed;
-  top: 0;
   width: 100%;
   z-index: 1000;
+  box-shadow: 0 2px 6px var(--sombra);
 }
 
-header nav a {
-  margin: 0 15px;
+.header a {
+  margin: 0 12px;
   text-decoration: none;
-  color: #333;
+  color: var(--escuro);
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
-header nav a:hover {
+.header a:hover {
   color: var(--verde);
-  transform: scale(1.1);
-}
-
-/* ===== BOTÕES ===== */
-.btn-primary {
-  background: var(--verde);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  background: var(--roxo);
-  transform: scale(1.1);
-}
-
-.btn-outline {
-  border: 2px solid white;
-  background: transparent;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-outline:hover {
-  background: var(--verde);
-  border-color: var(--verde);
-  color: white;
+  transform: scale(1.08);
 }
 
 /* ===== HERO ===== */
 .hero {
-  height: 100vh;
-  background: url('img/kettilyformiga_b08.jpg') center/cover fixed;
-  position: relative;
+  background: url("assets/kettilyformiga_b08.jpg") center/cover no-repeat fixed;
+  color: var(--branco);
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero .overlay {
+.hero::before {
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.5);
 }
 
-.hero .content {
+.hero__grid {
   position: relative;
   z-index: 2;
-  color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: 2.8rem;
   margin-bottom: 20px;
 }
 
-/* ===== SERVIÇOS ===== */
-.servicos {
-  background: var(--bege);
-  padding: 80px 50px;
-  text-align: center;
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
 }
 
-.servicos .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-.card {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: all 0.4s ease;
-  font-weight: bold;
-}
-
-.card:hover {
-  transform: scale(1.08) translateY(-5px);
-  background: var(--verde);
-  color: white;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* ===== FAQ ===== */
-.faq {
-  padding: 80px 50px;
-}
-
-.faq-item button {
-  width: 100%;
-  padding: 20px;
-  background: var(--bege);
-  border: none;
+/* ===== BOTÕES ===== */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
+  background: var(--verde);
+  color: var(--branco);
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
-.faq-item button:hover {
-  background: var(--verde);
-  color: white;
+.btn:hover {
+  background: var(--musgo);
+  transform: translateY(-3px) scale(1.05);
 }
 
-.answer {
+.btn--ghost {
+  background: transparent;
+  border: 2px solid var(--branco);
+  color: var(--branco);
+}
+
+.btn--ghost:hover {
+  background: var(--verde);
+  border-color: var(--verde);
+}
+
+/* ===== CARDS (Serviços, CTA, etc.) ===== */
+.card,
+.cta-card {
+  background: var(--branco);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--sombra);
+  transition: all 0.4s ease;
+}
+
+.card:hover,
+.cta-card:hover {
+  transform: scale(1.07) translateY(-6px);
+  background: var(--verde);
+  color: var(--branco);
+  box-shadow: 0 10px 25px var(--sombra);
+}
+
+/* ===== FAQ Accordion ===== */
+.accordion__header {
+  width: 100%;
+  text-align: left;
+  padding: 15px;
+  background: var(--bege);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordion__header:hover {
+  background: var(--verde);
+  color: var(--branco);
+}
+
+.accordion__panel {
   display: none;
   padding: 15px;
-  background: #f9f9f9;
-  margin-top: 10px;
+  background: #fdfdfd;
   border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 2px 6px var(--sombra);
 }
 
-/* ===== CONTATO ===== */
-.contato {
-  padding: 80px 50px;
-  background: var(--bege);
+/* ===== SCROLL ANIMATIONS ===== */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
 }
 
-.contato form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.contato form input,
-.contato form textarea {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.contato form button {
-  background: var(--verde);
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.contato form button:hover {
-  background: var(--roxo);
-  transform: scale(1.05);
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
 }
